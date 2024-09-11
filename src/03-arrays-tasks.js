@@ -463,8 +463,14 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const result = arr.sort((a, b) => {
+    if (a.country === b.country) {
+      return a.city > b.city ? 1 : -1;
+    }
+    return a.country > b.country ? 1 : -1;
+  });
+  return result;
 }
 
 /**
@@ -485,8 +491,13 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const result = Array(n).fill(0).map((_, index) => {
+    const row = Array(n).fill(0);
+    row[index] = 1;
+    return row;
+  });
+  return result;
 }
 
 /**
@@ -502,8 +513,12 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const result = Array((end - start + 1)).fill(0).map((_, index) => {
+    const digit = start + index;
+    return digit;
+  });
+  return result;
 }
 
 /**
@@ -517,8 +532,9 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const result = Array.from(new Set(arr));
+  return result;
 }
 
 /**
@@ -551,8 +567,17 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const result = array.reduce((acc, value) => {
+    const key = keySelector(value);
+    const item = valueSelector(value);
+    if (!acc.has(key)) {
+      acc.set(key, []);
+    }
+    acc.get(key).push(item);
+    return acc;
+  }, new Map());
+  return result;
 }
 
 
